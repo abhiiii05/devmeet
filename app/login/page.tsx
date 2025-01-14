@@ -45,18 +45,32 @@
 //         </div>
 //     );
 // }
-
+import React from "react";
 import { login, signup } from './actions'
+import { Button } from "@/components/ui/button"
+import {
+    Card,
+    CardContent,
+    CardFooter,
+    CardHeader,
+    CardTitle,
+} from "@/app/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 
 export default function LoginPage() {
     return (
-        <form>
-            <label htmlFor="email">Email:</label>
-            <input id="email" name="email" type="email" required />
-            <label htmlFor="password">Password:</label>
-            <input id="password" name="password" type="password" required />
-            <button formAction={login}>Log in</button>
-            <button formAction={signup}>Sign up</button>
-        </form>
+        <div className="h-[50rem] w-full bg-black bg-grid-white/[0.2] relative flex items-center justify-center">
+            <div
+                className="absolute pointer-events-none inset-0 flex items-center justify-center bg-black [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
+            <form>
+                <label htmlFor="email">Email:</label>
+                <input id="email" name="email" type="email" required/>
+                <label htmlFor="password">Password:</label>
+                <input id="password" name="password" type="password" required/>
+                <button formAction={login}>Log in</button>
+                <button formAction={signup}>Sign up</button>
+            </form>
+        </div>
     )
 }
