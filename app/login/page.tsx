@@ -61,16 +61,27 @@ import { Label } from "@/components/ui/label"
 export default function LoginPage() {
     return (
         <div className="h-[50rem] w-full bg-black bg-grid-white/[0.2] relative flex items-center justify-center">
-            <div
-                className="absolute pointer-events-none inset-0 flex items-center justify-center bg-black [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
+            <div className="absolute pointer-events-none inset-0 flex items-center justify-center bg-black [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
+            <Card className="w-[350px]">
+                <CardHeader>
+                    <CardTitle>User Login </CardTitle>
+                                     {/*<CardDescription>Deploy your new project in one-click.</CardDescription>*/}
+                </CardHeader>
+                <CardContent>
             <form>
-                <label htmlFor="email">Email:</label>
-                <input id="email" name="email" type="email" required/>
-                <label htmlFor="password">Password:</label>
-                <input id="password" name="password" type="password" required/>
-                <button formAction={login}>Log in</button>
-                <button formAction={signup}>Sign up</button>
+                <Label htmlFor="email">Email:</Label>
+                <Input id="email" name="email" type="email" required/>
+                <Label htmlFor="password">Password:</Label>
+                <Input id="password" name="password" type="password" required/>
+                <Button formAction={login}>Log in</Button>
+                <Button formAction={signup}>Sign up</Button>
             </form>
+                </CardContent>
+                <CardFooter className="flex justify-between">
+                    {/*<Button formAction={login} variant="outline">Login</Button>*/}
+                    {/*<Button>Sign Up</Button>*/}
+                </CardFooter>
+            </Card>
         </div>
     )
 }
