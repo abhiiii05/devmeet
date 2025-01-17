@@ -15,7 +15,7 @@ export default function DashboardPage() {
                 <Header />
                 <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-900">
                     <div className="container mx-auto px-6 py-8">
-                        <h1 className="text-3xl font-semibold mb-6">Welcome back, Developer!</h1>
+                        <h1 className="text-3xl font-semibold mb-6">Welcome back, placeholder </h1>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
                             <StatsCard icon={Calendar} title="Upcoming Meetings" value="3" />
                             <StatsCard icon={Users} title="Active Projects" value="5" />
