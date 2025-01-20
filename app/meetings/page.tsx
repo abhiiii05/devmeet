@@ -9,9 +9,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/app/components/ui/dialog"
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "../components/ui/dialog"
 
-// Define interfaces for our types
 interface Meeting {
     id: number
     title: string
@@ -45,7 +44,11 @@ export default function MeetingsPage() {
     ])
 
     const addMeeting = (newMeeting: Omit<Meeting, 'id'>) => {
-        setMeetings([...meetings, { id: meetings.length + 1, ...newMeeting }])
+        setMeetings([...meetings, {
+            id: meetings.length + 1,
+            ...newMeeting,
+            attendees: parseInt(newMeeting.attendees as unknown as string)
+        }])
     }
 
     const deleteMeeting = (id: number) => {
@@ -65,7 +68,12 @@ export default function MeetingsPage() {
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             {meetings.map((meeting, index) => (
-                                <MeetingCard key={meeting.id} meeting={meeting} onDelete={deleteMeeting} index={index} />
+                                <MeetingCard
+                                    key={meeting.id}
+                                    meeting={meeting}
+                                    onDelete={deleteMeeting}
+                                    index={index}
+                                />
                             ))}
                         </div>
                     </div>
@@ -103,10 +111,11 @@ function MeetingCard({ meeting, onDelete, index }: MeetingCardProps) {
                         <Clock className="h-4 w-4 mr-2" />
                         {meeting.time}
                     </div>
-                    <div className="flex items-center text-sm text-gray-400">
+                    <div className="flex items-center text-sm text-gray-400 mb-4">
                         <Users className="h-4 w-4 mr-2" />
                         {meeting.attendees} attendees
                     </div>
+                    <Button className="w-full bg-indigo-600 hover:bg-indigo-700">Join Meeting</Button>
                 </CardContent>
             </Card>
         </motion.div>
@@ -121,19 +130,16 @@ function AddMeetingDialog({ onAddMeeting }: AddMeetingDialogProps) {
         attendees: ""
     })
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        onAddMeeting({
-            ...newMeeting,
-            attendees: parseInt(newMeeting.attendees, 10) || 0
-        })
+        onAddMeeting(newMeeting)
         setNewMeeting({ title: "", date: "", time: "", attendees: "" })
     }
 
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button className="bg-indigo-600 hover:bg-indigo-700 rounded-sm">
+                <Button className="bg-indigo-600 hover:bg-indigo-700">
                     <Plus className="h-4 w-4 mr-2" /> Add Meeting
                 </Button>
             </DialogTrigger>
