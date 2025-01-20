@@ -11,18 +11,44 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/app/components/ui/dialog"
 
+// Define interfaces for our types
+interface Meeting {
+    id: number
+    title: string
+    date: string
+    time: string
+    attendees: number
+}
+
+interface NewMeeting {
+    title: string
+    date: string
+    time: string
+    attendees: string
+}
+
+interface MeetingCardProps {
+    meeting: Meeting
+    onDelete: (id: number) => void
+    index: number
+}
+
+interface AddMeetingDialogProps {
+    onAddMeeting: (meeting: Omit<Meeting, 'id'>) => void
+}
+
 export default function MeetingsPage() {
-    const [meetings, setMeetings] = useState([
+    const [meetings, setMeetings] = useState<Meeting[]>([
         { id: 1, title: "Team Standup", date: "2023-06-15", time: "09:00 AM", attendees: 5 },
         { id: 2, title: "Project Review", date: "2023-06-16", time: "02:00 PM", attendees: 8 },
         { id: 3, title: "Code Workshop", date: "2023-06-17", time: "10:00 AM", attendees: 12 },
     ])
 
-    const addMeeting = (newMeeting) => {
+    const addMeeting = (newMeeting: Omit<Meeting, 'id'>) => {
         setMeetings([...meetings, { id: meetings.length + 1, ...newMeeting }])
     }
 
-    const deleteMeeting = (id) => {
+    const deleteMeeting = (id: number) => {
         setMeetings(meetings.filter((meeting) => meeting.id !== id))
     }
 
@@ -49,7 +75,7 @@ export default function MeetingsPage() {
     )
 }
 
-function MeetingCard({ meeting, onDelete, index }) {
+function MeetingCard({ meeting, onDelete, index }: MeetingCardProps) {
     return (
         <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -87,12 +113,20 @@ function MeetingCard({ meeting, onDelete, index }) {
     )
 }
 
-function AddMeetingDialog({ onAddMeeting }) {
-    const [newMeeting, setNewMeeting] = useState({ title: "", date: "", time: "", attendees: "" })
+function AddMeetingDialog({ onAddMeeting }: AddMeetingDialogProps) {
+    const [newMeeting, setNewMeeting] = useState<NewMeeting>({
+        title: "",
+        date: "",
+        time: "",
+        attendees: ""
+    })
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
-        onAddMeeting(newMeeting)
+        onAddMeeting({
+            ...newMeeting,
+            attendees: parseInt(newMeeting.attendees, 10) || 0
+        })
         setNewMeeting({ title: "", date: "", time: "", attendees: "" })
     }
 
@@ -155,4 +189,3 @@ function AddMeetingDialog({ onAddMeeting }) {
         </Dialog>
     )
 }
-
