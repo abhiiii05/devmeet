@@ -1,7 +1,7 @@
-'use client'
+"use client"
 
-import { motion } from 'framer-motion'
-import { Bell, Search } from 'lucide-react'
+import { motion } from "framer-motion"
+import { Bell, Search, Plus } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 
@@ -28,6 +28,13 @@ export function Header() {
                     transition={{ duration: 0.3 }}
                     className="flex items-center space-x-4"
                 >
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        className="text-indigo-400 border-indigo-400 hover:bg-indigo-400 hover:text-white"
+                    >
+                        <Plus className="h-4 w-4 mr-2" /> Create Meeting
+                    </Button>
                     <Button variant="ghost" size="icon" className="text-gray-400 hover:text-white">
                         <Bell className="h-5 w-5" />
                     </Button>
