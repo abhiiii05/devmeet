@@ -29,7 +29,7 @@ export default function ProfilePage() {
                                             <div className="w-24 h-24 rounded-full bg-indigo-500 flex items-center justify-center text-white text-3xl font-semibold">
                                                 JD
                                             </div>
-                                            <Button className="bg-indigo-600 hover:bg-indigo-700">Change Avatar</Button>
+                                            <Button className="bg-indigo-600 hover:bg-indigo-700 w-36">Change Avatar</Button>
                                         </div>
                                         <div>
                                             <Label htmlFor="name">Full Name</Label>
