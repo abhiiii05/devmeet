@@ -8,7 +8,7 @@ import { usePathname } from "next/navigation"
 const menuItems = [
     { icon: Home, text: "Dashboard", href: "/dashboard" },
     { icon: Calendar, text: "Meetings", href: "/meetings" },
-    { icon: Users, text: "Teams", href: "/teams" },
+    // { icon: Users, text: "Teams", href: "/teams" },
     { icon: Settings, text: "Settings", href: "/settings" },
 ]
 
