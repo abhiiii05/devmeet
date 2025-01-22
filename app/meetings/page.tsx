@@ -139,7 +139,7 @@ function AddMeetingDialog({ onAddMeeting }: AddMeetingDialogProps) {
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button className="bg-indigo-600 hover:bg-indigo-700">
+                <Button className="bg-indigo-600 hover:bg-indigo-700 w-36">
                     <Plus className="h-4 w-4 mr-2" /> Add Meeting
                 </Button>
             </DialogTrigger>
