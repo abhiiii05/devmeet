@@ -30,7 +30,7 @@ export default function AddMeetingDialog({ onAddMeeting }: AddMeetingDialogProps
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button className="bg-indigo-600 hover:bg-indigo-700">Add Meeting</Button>
+                <Button className="bg-indigo-600 hover:bg-indigo-700 w-36">+ Add Meeting</Button>
             </DialogTrigger>
             <DialogContent className="bg-gray-800 text-white">
                 <DialogHeader>
@@ -40,6 +40,7 @@ export default function AddMeetingDialog({ onAddMeeting }: AddMeetingDialogProps
                     <div>
                         <Label htmlFor="title">Title</Label>
                         <Input
+                            className="text-black"
                             id="title"
                             value={newMeeting.title}
                             onChange={(e) => setNewMeeting({ ...newMeeting, title: e.target.value })}
@@ -49,6 +50,7 @@ export default function AddMeetingDialog({ onAddMeeting }: AddMeetingDialogProps
                     <div>
                         <Label htmlFor="date">Date</Label>
                         <Input
+                            className="text-black"
                             id="date"
                             type="date"
                             value={newMeeting.date}
@@ -59,6 +61,7 @@ export default function AddMeetingDialog({ onAddMeeting }: AddMeetingDialogProps
                     <div>
                         <Label htmlFor="time">Time</Label>
                         <Input
+                            className="text-black"
                             id="time"
                             type="time"
                             value={newMeeting.time}
@@ -69,6 +72,7 @@ export default function AddMeetingDialog({ onAddMeeting }: AddMeetingDialogProps
                     <div>
                         <Label htmlFor="attendees">Number of Attendees</Label>
                         <Input
+                            className="text-black"
                             id="attendees"
                             type="number"
                             value={newMeeting.attendees}
@@ -76,7 +80,7 @@ export default function AddMeetingDialog({ onAddMeeting }: AddMeetingDialogProps
                             required
                         />
                     </div>
-                    <Button type="submit">Add Meeting</Button>
+                    <Button className="bg-indigo-600 w-28" type="submit">Add Meeting</Button>
                 </form>
             </DialogContent>
         </Dialog>
