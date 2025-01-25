@@ -31,13 +31,11 @@ export function Header() {
                     <Button
                         variant="outline"
                         size="sm"
-                        className="text-indigo-400 border-indigo-400 hover:bg-indigo-400 hover:text-white"
+                        className="text-indigo-400 border-indigo-400 hover:bg-indigo-400 hover:text-white h-9"
                     >
-                        <Plus className="h-4 w-4 mr-2" /> Create Meeting
+                        + Create Meeting
                     </Button>
-                    <Button variant="ghost" size="icon" className="text-gray-400 hover:text-white">
-                        <Bell className="h-5 w-5" />
-                    </Button>
+                    
                     <div className="w-8 h-8 rounded-full bg-indigo-500 flex items-center justify-center text-white font-semibold">
                         JD
                     </div>

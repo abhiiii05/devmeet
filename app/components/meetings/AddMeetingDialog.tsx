@@ -17,6 +17,7 @@ export default function AddMeetingDialog({ onAddMeeting }: AddMeetingDialogProps
         time: "",
         attendees: "",
     });
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -25,12 +26,19 @@ export default function AddMeetingDialog({ onAddMeeting }: AddMeetingDialogProps
             attendees: parseInt(newMeeting.attendees),
         });
         setNewMeeting({ title: "", date: "", time: "", attendees: "" });
+
+        setIsDialogOpen(false);
     };
 
     return (
-        <Dialog>
+        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
             <DialogTrigger asChild>
-                <Button className="bg-indigo-600 hover:bg-indigo-700 w-36">+ Add Meeting</Button>
+                <Button
+                    onClick={() => setIsDialogOpen(true)}
+                    className="bg-indigo-600 hover:bg-indigo-700 w-36"
+                >
+                    + Add Meeting
+                </Button>
             </DialogTrigger>
             <DialogContent className="bg-gray-800 text-white">
                 <DialogHeader>
@@ -76,13 +84,16 @@ export default function AddMeetingDialog({ onAddMeeting }: AddMeetingDialogProps
                             id="attendees"
                             type="number"
                             value={newMeeting.attendees}
-                            onChange={(e) => setNewMeeting({ ...newMeeting, attendees: e.target.value })}
+                            onChange={(e) =>
+                                setNewMeeting({ ...newMeeting, attendees: e.target.value })
+                            }
                             required
                         />
                     </div>
-                    <Button className="bg-indigo-600 w-28" type="submit">Add Meeting</Button>
+                    <Button className="bg-indigo-600 w-28" type="submit">
+                        Add Meeting
+                    </Button>
                 </form>
             </DialogContent>
         </Dialog>
-    );
-}
+    );}
