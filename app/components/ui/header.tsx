@@ -35,7 +35,7 @@ export function Header() {
                     >
                         + Create Meeting
                     </Button>
-                    
+
                     <div className="w-8 h-8 rounded-full bg-indigo-500 flex items-center justify-center text-white font-semibold">
                         JD
                     </div>

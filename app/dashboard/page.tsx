@@ -23,7 +23,7 @@ export default function DashboardPage() {
                         </div>
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                             <UpcomingMeetings />
-                            <RecentActivity />
+                            {/*<RecentActivity />*/}
                         </div>
                     </div>
                 </main>
@@ -39,13 +39,13 @@ function StatsCard({ icon: Icon, title, value }: { icon: any, title: string, val
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
         >
-            <Card className="bg-gray-800 border-gray-700">
+            <Card className="bg-gray-800 border-gray-700 ">
                 <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
-                    <CardTitle className="text-sm font-medium text-gray-400">{title}</CardTitle>
+                    <CardTitle className="text-sm font-medium text-gray-400 w">{title}</CardTitle>
                     <Icon className="h-4 w-4 text-indigo-400" />
                 </CardHeader>
                 <CardContent>
-                    <div className="text-2xl font-bold text-white">{value}</div>
+                    <div className="text-2xl font-bold text-white ">{value}</div>
                 </CardContent>
             </Card>
         </motion.div>
@@ -60,9 +60,9 @@ function UpcomingMeetings() {
     ]
 
     return (
-        <Card className="bg-gray-800 border-gray-700">
+        <Card className="bg-gray-800 border-gray-700 ">
             <CardHeader>
-                <CardTitle className="text-xl font-semibold text-white">Upcoming Meetings</CardTitle>
+                <CardTitle className="text-xl font-semibold text-white text">Upcoming Meetings</CardTitle>
             </CardHeader>
             <CardContent>
                 <ul className="space-y-4">
@@ -89,40 +89,39 @@ function UpcomingMeetings() {
     )
 }
 
-function RecentActivity() {
-    const activities = [
-        { id: 1, text: "Alice commented on your pull request", time: "2 hours ago" },
-        { id: 2, text: "Bob invited you to a new project", time: "Yesterday" },
-        { id: 3, text: "You completed the 'React Basics' course", time: "3 days ago" },
-    ]
+// function RecentActivity() {
+//     const activities = [
+//         { id: 1, text: "Alice commented on your pull request", time: "2 hours ago" },
+//         { id: 2, text: "Bob invited you to a new project", time: "Yesterday" },
+//         { id: 3, text: "You completed the 'React Basics' course", time: "3 days ago" },
+//     ]
 
-    return (
-        <Card className="bg-gray-800 border-gray-700">
-            <CardHeader>
-                <CardTitle className="text-xl font-semibold text-white">Recent Activity</CardTitle>
-            </CardHeader>
-            <CardContent>
-                <ul className="space-y-4">
-                    {activities.map((activity, index) => (
-                        <motion.li
-                            key={activity.id}
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.3, delay: index * 0.1 }}
-                            className="flex items-start space-x-3 bg-gray-700 p-3 rounded-lg"
-                        >
-                            <div className="flex-shrink-0">
-                                <div className="w-2 h-2 mt-2 rounded-full bg-indigo-400" />
-                            </div>
-                            <div>
-                                <p className="text-white">{activity.text}</p>
-                                <p className="text-sm text-gray-400">{activity.time}</p>
-                            </div>
-                        </motion.li>
-                    ))}
-                </ul>
-            </CardContent>
-        </Card>
-    )
-}
-
+    // return (
+    //     <Card className="bg-gray-800 border-gray-700">
+    //         <CardHeader>
+    //             <CardTitle className="text-xl font-semibold text-white">Recent Activity</CardTitle>
+    //         </CardHeader>
+    //         <CardContent>
+    //             <ul className="space-y-4">
+    //                 {activities.map((activity, index) => (
+    //                     <motion.li
+    //                         key={activity.id}
+    //                         initial={{ opacity: 0, y: 20 }}
+    //                         animate={{ opacity: 1, y: 0 }}
+    //                         transition={{ duration: 0.3, delay: index * 0.1 }}
+    //                         className="flex items-start space-x-3 bg-gray-700 p-3 rounded-lg"
+    //                     >
+    //                         <div className="flex-shrink-0">
+    //                             <div className="w-2 h-2 mt-2 rounded-full bg-indigo-400" />
+    //                         </div>
+    //                         <div>
+    //                             <p className="text-white">{activity.text}</p>
+    //                             <p className="text-sm text-gray-400">{activity.time}</p>
+    //                         </div>
+    //                     </motion.li>
+    //                 ))}
+    //             </ul>
+    //         </CardContent>
+    //     </Card>
+    // )
+// }

@@ -44,7 +44,7 @@ export default function MeetingCard({ meeting, onDelete }: MeetingCardProps) {
                         <Users className="h-4 w-4 mr-2" />
                         {meeting.attendees} attendees
                     </div>
-                    <Button className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold">
+                    <Button className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold ">
                         Join Meeting
                     </Button>
                 </CardContent>
