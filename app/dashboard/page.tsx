@@ -60,7 +60,7 @@ function UpcomingMeetings() {
     ]
 
     return (
-        <Card className="bg-gray-800 border-gray-700 ">
+        <Card className="bg-gray-800 border-gray-700 max-w-full ">
             <CardHeader>
                 <CardTitle className="text-xl font-semibold text-white text">Upcoming Meetings</CardTitle>
             </CardHeader>
