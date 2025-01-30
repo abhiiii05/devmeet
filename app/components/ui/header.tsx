@@ -4,6 +4,7 @@ import { motion } from "framer-motion"
 import { Bell, Search, Plus } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
+import {UserButton} from "@clerk/nextjs";
 
 export function Header() {
     return (
@@ -28,17 +29,19 @@ export function Header() {
                     transition={{ duration: 0.3 }}
                     className="flex items-center space-x-4"
                 >
-                    <Button
-                        variant="outline"
-                        size="sm"
-                        className="text-indigo-400 border-indigo-400 hover:bg-indigo-400 hover:text-white h-9"
-                    >
-                        + Create Meeting
-                    </Button>
+                    {/*<Button*/}
+                    {/*    variant="outline"*/}
+                    {/*    size="sm"*/}
+                    {/*    className="text-indigo-400 border-indigo-400 hover:bg-indigo-400 hover:text-white h-9"*/}
+                    {/*>*/}
+                    {/*    + Create Meeting*/}
+                    {/*</Button>*/}
 
                     <div className="w-8 h-8 rounded-full bg-indigo-500 flex items-center justify-center text-white font-semibold">
-                        JD
+                        {/*JD*/}
+                        <UserButton/>
                     </div>
+
                 </motion.div>
             </div>
         </header>
