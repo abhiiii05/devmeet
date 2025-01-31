@@ -6,9 +6,10 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 
 const menuItems = [
-    { icon: Home, text: "Dashboard", href: "/dashboard" },
+    { icon: Home, text: "Dashboard", href: "/" },
     { icon: Calendar, text: "Meetings", href: "/meetings" },
     // { icon: Users, text: "Teams", href: "/teams" },
+    { icon: Users, text: "Profile", href: "/profile" },
     { icon: Settings, text: "Settings", href: "/settings" },
 ]
 

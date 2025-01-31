@@ -29,14 +29,14 @@ export default function ProfilePage() {
                                             <div className="w-24 h-24 rounded-full bg-indigo-500 flex items-center justify-center text-white text-3xl font-semibold">
                                                 JD
                                             </div>
-                                            <Button className="bg-indigo-600 hover:bg-indigo-700 w-36">Change Avatar</Button>
+                                            <Button className="bg-indigo-600 hover:bg-indigo-700 w-36 text-white font-bold">Change Avatar</Button>
                                         </div>
                                         <div>
-                                            <Label htmlFor="name">Full Name</Label>
-                                            <Input id="name" defaultValue="John Doe" className="bg-gray-700 text-white border-gray-600" />
+                                            <Label htmlFor="name" className="text-white">Full Name</Label>
+                                            <Input id="name" defaultValue="{user.firstName}" className="bg-gray-700 text-white border-gray-600" />
                                         </div>
                                         <div>
-                                            <Label htmlFor="email">Email</Label>
+                                            <Label htmlFor="email" className="text-white">Email</Label>
                                             <Input
                                                 id="email"
                                                 type="email"
@@ -45,14 +45,14 @@ export default function ProfilePage() {
                                             />
                                         </div>
                                         <div>
-                                            <Label htmlFor="bio">Bio</Label>
+                                            <Label htmlFor="bio" className="text-white">Bio</Label>
                                             <Textarea
                                                 id="bio"
                                                 defaultValue="Full-stack developer passionate about creating innovative solutions."
                                                 className="bg-gray-700 text-white border-gray-600"
                                             />
                                         </div>
-                                        <Button className="w-full bg-indigo-600 hover:bg-indigo-700">Save Changes</Button>
+                                        <Button className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold">Save Changes</Button>
                                     </CardContent>
                                 </Card>
                             </motion.div>
