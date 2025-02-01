@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/app/components/ui/textarea"
+import {UserButton} from "@clerk/nextjs";
 
 export default function ProfilePage() {
     return (
@@ -26,8 +27,9 @@ export default function ProfilePage() {
                                     </CardHeader>
                                     <CardContent className="space-y-4">
                                         <div className="flex items-center space-x-4">
-                                            <div className="w-24 h-24 rounded-full bg-indigo-500 flex items-center justify-center text-white text-3xl font-semibold">
-                                                JD
+                                            <div className="w-24 h-24 rounded-full bg-black flex items-center justify-center text-white text-3xl font-semibold">
+                                                {/*JD*/}
+                                                <UserButton/>
                                             </div>
                                             <Button className="bg-indigo-600 hover:bg-indigo-700 w-36 text-white font-bold">Change Avatar</Button>
                                         </div>
