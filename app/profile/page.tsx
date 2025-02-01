@@ -94,21 +94,21 @@ import { useUser } from '@clerk/nextjs';
                                         </CardHeader>
                                         <CardContent className="space-y-4">
                                             <div>
-                                                <Label htmlFor="current-password">Current Password</Label>
+                                                <Label className="text-white" htmlFor="current-password">Current Password</Label>
                                                 <Input id="current-password" type="password"
                                                        className="bg-gray-700 text-white border-gray-600"/>
                                             </div>
                                             <div>
-                                                <Label htmlFor="new-password">New Password</Label>
+                                                <Label className="text-white" htmlFor="new-password">New Password</Label>
                                                 <Input id="new-password" type="password"
                                                        className="bg-gray-700 text-white border-gray-600"/>
                                             </div>
                                             <div>
-                                                <Label htmlFor="confirm-password">Confirm New Password</Label>
+                                                <Label className="text-white" htmlFor="confirm-password">Confirm New Password</Label>
                                                 <Input id="confirm-password" type="password"
                                                        className="bg-gray-700 text-white border-gray-600"/>
                                             </div>
-                                            <Button className="w-full bg-indigo-600 hover:bg-indigo-700">Change
+                                            <Button className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold">Change
                                                 Password</Button>
                                         </CardContent>
                                     </Card>
