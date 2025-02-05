@@ -7,7 +7,7 @@ import { Input } from "../../../components/ui/input";
 import { Label } from "../../../components/ui/label";
 
 interface AddMeetingDialogProps {
-    onAddMeeting: (meeting: { title: string; date: string; time: string; attendees: number }) => void;
+    onAddMeeting: (meeting: { title: string; date: string; time: string; attendees: number; link:string }) => void;
 }
 
 export default function AddMeetingDialog({ onAddMeeting }: AddMeetingDialogProps) {
@@ -16,6 +16,7 @@ export default function AddMeetingDialog({ onAddMeeting }: AddMeetingDialogProps
         date: "",
         time: "",
         attendees: "",
+        link: "",
     });
     const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -25,7 +26,7 @@ export default function AddMeetingDialog({ onAddMeeting }: AddMeetingDialogProps
             ...newMeeting,
             attendees: parseInt(newMeeting.attendees),
         });
-        setNewMeeting({ title: "", date: "", time: "", attendees: "" });
+        setNewMeeting({ title: "", date: "", time: "", attendees: "",link: "" });
 
         setIsDialogOpen(false);
     };
@@ -51,7 +52,7 @@ export default function AddMeetingDialog({ onAddMeeting }: AddMeetingDialogProps
                             className="text-black"
                             id="title"
                             value={newMeeting.title}
-                            onChange={(e) => setNewMeeting({ ...newMeeting, title: e.target.value })}
+                            onChange={(e) => setNewMeeting({...newMeeting, title: e.target.value})}
                             required
                         />
                     </div>
@@ -62,7 +63,7 @@ export default function AddMeetingDialog({ onAddMeeting }: AddMeetingDialogProps
                             id="date"
                             type="date"
                             value={newMeeting.date}
-                            onChange={(e) => setNewMeeting({ ...newMeeting, date: e.target.value })}
+                            onChange={(e) => setNewMeeting({...newMeeting, date: e.target.value})}
                             required
                         />
                     </div>
@@ -73,7 +74,7 @@ export default function AddMeetingDialog({ onAddMeeting }: AddMeetingDialogProps
                             id="time"
                             type="time"
                             value={newMeeting.time}
-                            onChange={(e) => setNewMeeting({ ...newMeeting, time: e.target.value })}
+                            onChange={(e) => setNewMeeting({...newMeeting, time: e.target.value})}
                             required
                         />
                     </div>
@@ -85,7 +86,20 @@ export default function AddMeetingDialog({ onAddMeeting }: AddMeetingDialogProps
                             type="number"
                             value={newMeeting.attendees}
                             onChange={(e) =>
-                                setNewMeeting({ ...newMeeting, attendees: e.target.value })
+                                setNewMeeting({...newMeeting, attendees: e.target.value})
+                            }
+                            required
+                        />
+                    </div>
+                    <div>
+                        <Label htmlFor="attendees">Meeting Link</Label>
+                        <Input
+                            className="text-black"
+                            id="attendees"
+                            type="text"
+                            value={newMeeting.link}
+                            onChange={(e) =>
+                                setNewMeeting({...newMeeting, link: e.target.value})
                             }
                             required
                         />
@@ -96,4 +110,5 @@ export default function AddMeetingDialog({ onAddMeeting }: AddMeetingDialogProps
                 </form>
             </DialogContent>
         </Dialog>
-    );}
+    );
+}

@@ -13,6 +13,7 @@ interface Meeting {
     date: string;
     time: string;
     attendees: number;
+    link: string;
 }
 
 export default function MeetingsPage() {

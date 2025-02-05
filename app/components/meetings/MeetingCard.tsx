@@ -3,10 +3,10 @@
 import { motion } from "framer-motion";
 import { Button } from "../../../components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
-import { Calendar, Clock, Users, X } from "lucide-react";
+import { Calendar, Clock, Users, X ,Link} from "lucide-react";
 
 interface MeetingCardProps {
-    meeting: { id: string; title: string; date: string; time: string; attendees: number };
+    meeting: { id: string; title: string; date: string; time: string; attendees: number; link: string };
     onDelete: (id: string) => void;
 }
 
@@ -33,16 +33,20 @@ export default function MeetingCard({ meeting, onDelete }: MeetingCardProps) {
                 </CardHeader>
                 <CardContent>
                     <div className="flex items-center text-sm text-gray-400 mb-2">
-                        <Calendar className="h-4 w-4 mr-2" />
+                        <Calendar className="h-4 w-4 mr-2"/>
                         {meeting.date}
                     </div>
                     <div className="flex items-center text-sm text-gray-400 mb-2">
-                        <Clock className="h-4 w-4 mr-2" />
+                        <Clock className="h-4 w-4 mr-2"/>
                         {meeting.time}
                     </div>
-                    <div className="flex items-center text-sm text-gray-400 mb-4">
-                        <Users className="h-4 w-4 mr-2" />
+                    <div className="flex items-center text-sm text-gray-400 mb-2">
+                        <Users className="h-4 w-4 mr-2"/>
                         {meeting.attendees} attendees
+                    </div>
+                    <div className="flex items-center text-sm text-gray-400 mb-4">
+                        <Link className="h-4 w-4 mr-2"/>
+                        {meeting.link}
                     </div>
                     <Button className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold ">
                         Join Meeting
