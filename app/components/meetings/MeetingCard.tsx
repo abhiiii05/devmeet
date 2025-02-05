@@ -4,20 +4,33 @@ import { motion } from "framer-motion";
 import { Button } from "../../../components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Calendar, Clock, Users, X ,Link} from "lucide-react";
+import EditMeetingDialog from "@/app/components/meetings/UpdateMeeting";
+import {useState} from "react";
 
 interface MeetingCardProps {
     meeting: { id: string; title: string; date: string; time: string; attendees: number; link: string };
     onDelete: (id: string) => void;
+    onUpdate: (updatedMeeting: {
+        id: string;
+        title: string;
+        date: string;
+        time: string;
+        attendees: number;
+        link: string;
+    }) => void;
 }
 
-export default function MeetingCard({ meeting, onDelete }: MeetingCardProps) {
+export default function MeetingCard({ meeting, onDelete, onUpdate}: MeetingCardProps) {
+    const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
     return (
+        <>
         <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
             whileHover={{ scale: 1.05 }} // Add hover effect
             whileTap={{ scale: 0.98 }}  // Optional: Add a subtle tap effect
+            onClick={() => setIsEditDialogOpen(true)}
         >
             <Card className="bg-gray-800 border-gray-700 shadow-lg transition-shadow">
                 <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
@@ -54,5 +67,12 @@ export default function MeetingCard({ meeting, onDelete }: MeetingCardProps) {
                 </CardContent>
             </Card>
         </motion.div>
+            <EditMeetingDialog
+                isOpen={isEditDialogOpen}
+                onClose={() => setIsEditDialogOpen(false)}
+                meeting={meeting}
+                onSave={onUpdate}
+            />
+        </>
     );
 }

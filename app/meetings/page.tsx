@@ -45,6 +45,22 @@ export default function MeetingsPage() {
         else setMeetings(meetings.filter((meeting) => meeting.id !== id));
     };
 
+    const updateMeeting = async (updatedMeeting: Meeting) => {
+        const { data, error } = await supabase
+            .from("meetings")
+            .update(updatedMeeting)
+            .eq("id", updatedMeeting.id)
+            .select();
+        if (error) console.error(error);
+        else {
+            setMeetings((prevMeetings) =>
+                prevMeetings.map((meeting) =>
+                    meeting.id === updatedMeeting.id ? updatedMeeting : meeting
+                )
+            );
+        }
+    };
+
     return (
         <div className="flex h-screen bg-gray-900 text-gray-100">
             <Sidebar />
@@ -62,6 +78,7 @@ export default function MeetingsPage() {
                                     key={meeting.id}
                                     meeting={meeting}
                                     onDelete={deleteMeeting}
+                                    onUpdate={updateMeeting}
                                 />
                             ))}
                         </div>
