@@ -24,7 +24,7 @@ export function Sidebar() {
             className="bg-gray-800 text-white w-64 min-h-screen p-4"
         >
             <div className="flex items-center justify-center mb-8">
-                <h1 className="text-2xl font-bold">DevMeetup</h1>
+                <h1 className="text-2xl font-bold">DevMeet</h1>
             </div>
             <nav>
                 <ul className="space-y-2">

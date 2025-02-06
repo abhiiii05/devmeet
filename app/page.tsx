@@ -12,6 +12,7 @@ import { MultiStepLoader as Loader } from '../components/ui/multi-step-loader';
 
 export default function DashboardPage() {
     const { isSignedIn, user, isLoaded } = useUser();
+    const [totalAttendees, setTotalAttendees] = useState<number>(0)
     const [meetingCount, setMeetingCount] = useState<number>(0);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
@@ -33,6 +34,31 @@ export default function DashboardPage() {
             fetchData();
         }
     }, [isLoaded, isSignedIn]);
+
+    useEffect(() => {
+        const fetchTotalAttendees = async () => {
+            try {
+                const { data, error } = await supabase
+                    .from("meetings")
+                    .select("attendees");
+
+                if (error) {
+                    throw error;
+                }
+
+                // Calculate the sum of attendees manually
+                const sum = data.reduce((acc, meeting) => acc + meeting.attendees, 0);
+                setTotalAttendees(sum);
+            } catch (error) {
+                setError("Failed to fetch total attendees");
+                console.error(error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchTotalAttendees();
+    }, []);
 
     // Loading state
     if (!isLoaded) {
@@ -68,7 +94,7 @@ export default function DashboardPage() {
                         <h1 className="text-3xl font-semibold mb-6">Welcome back, {user.firstName}</h1>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
                             <StatsCard icon={Calendar} title="Upcoming Meetings" value={meetingCount} />
-                            <StatsCard icon={Users} title="Active Projects" value={2} />
+                            <StatsCard icon={Users} title="Total Attendees" value={totalAttendees} />
                             <StatsCard icon={Star} title="Unread Messages" value={6} />
                         </div>
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -168,6 +194,18 @@ export async function getMeetingCount(): Promise<number> {
 
     return count || 0;
 }
+// export async function getAttendeesCount(): Promise<number> {
+//     const { count, error } = await supabase
+//         .from('meetings')
+//         .select('attendees', { count: 'sum(attendees)', head: true });
+//
+//     if (error) {
+//         console.error('Error fetching meeting count:', error);
+//         throw error;
+//     }
+//
+//     return count || 0;
+// }
 
 const loadingStates = [
     { text: 'Buying a condo' },
