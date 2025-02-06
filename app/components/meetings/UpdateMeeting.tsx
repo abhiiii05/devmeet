@@ -122,7 +122,7 @@ export default function EditMeetingDialog({ isOpen, onClose, meeting, onSave }: 
                         >
                             Cancel
                         </Button>
-                        <Button type="submit" className="bg-indigo-600 w-20 font-bold">
+                        <Button type="submit" className="bg-indigo-600 w-20 font-bold ">
                             Save
                         </Button>
                     </div>

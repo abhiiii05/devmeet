@@ -1,7 +1,7 @@
 'use client';
 import { useUser } from '@clerk/nextjs';
 import { motion } from 'framer-motion';
-import { Calendar, Users, MessageSquare } from 'lucide-react';
+import { Calendar, Users, MessageSquare,Star } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Header } from './components/ui/header';
 import { Sidebar } from './components/ui/sidebar';
@@ -69,7 +69,7 @@ export default function DashboardPage() {
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
                             <StatsCard icon={Calendar} title="Upcoming Meetings" value={meetingCount} />
                             <StatsCard icon={Users} title="Active Projects" value={2} />
-                            <StatsCard icon={MessageSquare} title="Unread Messages" value={6} />
+                            <StatsCard icon={Star} title="Unread Messages" value={6} />
                         </div>
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                             <UpcomingMeetings />

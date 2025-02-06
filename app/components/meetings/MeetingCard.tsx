@@ -30,7 +30,7 @@ export default function MeetingCard({ meeting, onDelete, onUpdate}: MeetingCardP
             transition={{ duration: 0.3 }}
             whileHover={{ scale: 1.05 }} // Add hover effect
             whileTap={{ scale: 0.98 }}  // Optional: Add a subtle tap effect
-            onClick={() => setIsEditDialogOpen(true)}
+            // onClick={() => setIsEditDialogOpen(true)}
         >
             <Card className="bg-gray-800 border-gray-700 shadow-lg transition-shadow">
                 <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
@@ -63,6 +63,9 @@ export default function MeetingCard({ meeting, onDelete, onUpdate}: MeetingCardP
                     </div>
                     <Button className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold ">
                         Join Meeting
+                    </Button>
+                    <Button className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold mt-3 " onClick={() => setIsEditDialogOpen(true)}>
+                        Edit
                     </Button>
                 </CardContent>
             </Card>

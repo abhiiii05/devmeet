@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Calendar, Users, MessageSquare, Plus } from 'lucide-react'
+import { Calendar, Users, MessageSquare, Plus, Star } from 'lucide-react'
 import { Header } from '../components/ui/header'
 import { Sidebar } from '../components/ui/sidebar'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -19,7 +19,7 @@ export default function DashboardPage() {
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
                             <StatsCard icon={Calendar} title="Upcoming Meetings" value="3" />
                             <StatsCard icon={Users} title="Active Projects" value="5" />
-                            <StatsCard icon={MessageSquare} title="Unread Messages" value="12" />
+                            <StatsCard icon={Star} title="Unread Messages" value="12" />
                         </div>
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                             <UpcomingMeetings />
