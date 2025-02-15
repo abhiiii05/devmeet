@@ -62,7 +62,7 @@ export default function EditMeetingDialog({ isOpen, onClose, meeting, onSave }: 
                     <div>
                         <Label htmlFor="title">Title</Label>
                         <Input
-                            className="text-black"
+                            className="text-white bg-gray-600"
                             id="title"
                             value={title}
                             onChange={(e) => setTitle(e.target.value)}
@@ -72,7 +72,7 @@ export default function EditMeetingDialog({ isOpen, onClose, meeting, onSave }: 
                     <div>
                         <Label htmlFor="date">Date</Label>
                         <Input
-                            className="text-black"
+                            className="text-white bg-gray-600"
                             id="date"
                             type="date"
                             value={date}
@@ -83,7 +83,7 @@ export default function EditMeetingDialog({ isOpen, onClose, meeting, onSave }: 
                     <div>
                         <Label htmlFor="time">Time</Label>
                         <Input
-                            className="text-black"
+                            className="text-white bg-gray-600"
                             id="time"
                             type="time"
                             value={time}
@@ -94,7 +94,7 @@ export default function EditMeetingDialog({ isOpen, onClose, meeting, onSave }: 
                     <div>
                         <Label htmlFor="attendees">Number of Attendees</Label>
                         <Input
-                            className="text-black"
+                            className="text-white bg-gray-600"
                             id="attendees"
                             type="number"
                             value={attendees}
@@ -105,7 +105,7 @@ export default function EditMeetingDialog({ isOpen, onClose, meeting, onSave }: 
                     <div>
                         <Label htmlFor="link">Meeting Link</Label>
                         <Input
-                            className="text-black"
+                            className="text-white bg-gray-600"
                             id="link"
                             type="text"
                             value={link}

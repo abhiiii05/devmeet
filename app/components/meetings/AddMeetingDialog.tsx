@@ -49,7 +49,7 @@ export default function AddMeetingDialog({ onAddMeeting }: AddMeetingDialogProps
                     <div>
                         <Label htmlFor="title">Title</Label>
                         <Input
-                            className="text-black"
+                            className="text-white bg-gray-600"
                             id="title"
                             value={newMeeting.title}
                             onChange={(e) => setNewMeeting({...newMeeting, title: e.target.value})}
@@ -59,7 +59,7 @@ export default function AddMeetingDialog({ onAddMeeting }: AddMeetingDialogProps
                     <div>
                         <Label htmlFor="date">Date</Label>
                         <Input
-                            className="text-black"
+                            className="text-white bg-gray-600"
                             id="date"
                             type="date"
                             value={newMeeting.date}
@@ -70,7 +70,7 @@ export default function AddMeetingDialog({ onAddMeeting }: AddMeetingDialogProps
                     <div>
                         <Label htmlFor="time">Time</Label>
                         <Input
-                            className="text-black"
+                            className="text-white bg-gray-600"
                             id="time"
                             type="time"
                             value={newMeeting.time}
@@ -81,7 +81,7 @@ export default function AddMeetingDialog({ onAddMeeting }: AddMeetingDialogProps
                     <div>
                         <Label htmlFor="attendees">Number of Attendees</Label>
                         <Input
-                            className="text-black"
+                            className="text-white bg-gray-600"
                             id="attendees"
                             type="number"
                             value={newMeeting.attendees}
@@ -94,7 +94,7 @@ export default function AddMeetingDialog({ onAddMeeting }: AddMeetingDialogProps
                     <div>
                         <Label htmlFor="attendees">Meeting Link</Label>
                         <Input
-                            className="text-black"
+                            className="text-white bg-gray-600"
                             id="attendees"
                             type="text"
                             value={newMeeting.link}
