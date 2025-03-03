@@ -95,7 +95,7 @@ export default function DashboardPage() {
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
                             <StatsCard icon={Calendar} title="Upcoming Meetings" value={meetingCount} />
                             <StatsCard icon={Users} title="Total Attendees" value={totalAttendees} />
-                            <StatsCard icon={Star} title="Unread Messages" value={6} />
+                            <StatsCard icon={Star} title="Important Meeting Count" value={6} />
                         </div>
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                             <UpcomingMeetings />
@@ -140,7 +140,7 @@ function UpcomingMeetings() {
     return (
         <Card className="bg-gray-800 border-gray-700 w-full">
             <CardHeader>
-                <CardTitle className="text-xl font-semibold text-white">Upcoming Meetings</CardTitle>
+                <CardTitle className="text-xl font-semibold text-white">Important Meetings</CardTitle>
             </CardHeader>
             <CardContent>
                 <ul className="space-y-4">
