@@ -1,3 +1,4 @@
+// app/meetings/page.tsx
 "use client";
 
 import { useEffect, useState } from "react";
@@ -14,12 +15,12 @@ interface Meeting {
     time: string;
     attendees: number;
     link: string;
+    isStarred?: boolean;
 }
 
 export default function MeetingsPage() {
     const [meetings, setMeetings] = useState<Meeting[]>([]);
 
-    // Fetch meetings from Supabase
     useEffect(() => {
         const fetchMeetings = async () => {
             const { data, error } = await supabase.from("meetings").select("*");
@@ -33,7 +34,7 @@ export default function MeetingsPage() {
     const addMeeting = async (newMeeting: Omit<Meeting, "id">) => {
         const { data, error } = await supabase
             .from("meetings")
-            .insert(newMeeting)
+            .insert([{ ...newMeeting, isStarred: false }]) // Default isStarred to false
             .select();
         if (error) console.error(error);
         else setMeetings([...meetings, ...data]);
@@ -51,13 +52,40 @@ export default function MeetingsPage() {
             .update(updatedMeeting)
             .eq("id", updatedMeeting.id)
             .select();
-        if (error) console.error(error);
-        else {
+
+        if (error) {
+            console.error("Error updating meeting:", error);
+        } else {
+            console.log("Updated meeting data:", data); // Log the updated data
             setMeetings((prevMeetings) =>
                 prevMeetings.map((meeting) =>
                     meeting.id === updatedMeeting.id ? updatedMeeting : meeting
                 )
             );
+        }
+    };
+
+    const toggleStar = async (id: string, isStarred: boolean) => {
+        console.log("Toggling star for meeting:", id, "New state:", !isStarred);
+
+        try {
+            const { error } = await supabase
+                .from("meetings")
+                .update({ isStarred: !isStarred })
+                .eq("id", id);
+
+            if (error) {
+                console.error("Error toggling star:", error);
+            } else {
+                console.log("Star toggled successfully");
+                setMeetings((prevMeetings) =>
+                    prevMeetings.map((meeting) =>
+                        meeting.id === id ? { ...meeting, isStarred: !isStarred } : meeting
+                    )
+                );
+            }
+        } catch (error) {
+            console.error("Error in toggleStar:", error);
         }
     };
 
@@ -79,6 +107,7 @@ export default function MeetingsPage() {
                                     meeting={meeting}
                                     onDelete={deleteMeeting}
                                     onUpdate={updateMeeting}
+                                    onToggleStar={toggleStar}
                                 />
                             ))}
                         </div>
