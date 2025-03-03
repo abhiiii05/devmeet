@@ -14,6 +14,7 @@ export default function DashboardPage() {
     const { isSignedIn, user, isLoaded } = useUser();
     const [totalAttendees, setTotalAttendees] = useState<number>(0)
     const [meetingCount, setMeetingCount] = useState<number>(0);
+    const [impCount, setimpCount] = useState<number>(0);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 
@@ -60,6 +61,33 @@ export default function DashboardPage() {
         fetchTotalAttendees();
     }, []);
 
+    const fetchImportantMeetingsCount = async () => {
+        try {
+            const { count, error } = await supabase
+                .from("meetings")
+                .select("*", { count: "exact", head: true })
+                .eq("isStarred", true);
+
+            if (error) {
+                console.error("Error fetching important meetings count:", error);
+            } else {
+                console.log("Important meetings count fetched successfully:", count);
+                setimpCount(count || 0);
+            }
+        } catch (error) {
+            console.error("Error in fetchImportantMeetingsCount:", error);
+        }
+    };
+
+    // Call fetchImportantMeetingsCount when the component mounts or when meetings change
+    useEffect(() => {
+        fetchImportantMeetingsCount();
+    }, []);
+
+
+
+
+
     // Loading state
     if (!isLoaded) {
         return (
@@ -95,7 +123,7 @@ export default function DashboardPage() {
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
                             <StatsCard icon={Calendar} title="Upcoming Meetings" value={meetingCount} />
                             <StatsCard icon={Users} title="Total Attendees" value={totalAttendees} />
-                            <StatsCard icon={Star} title="Important Meeting Count" value={6} />
+                            <StatsCard icon={Star} title="Important Meeting Count" value={impCount} />
                         </div>
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                             <UpcomingMeetings />
