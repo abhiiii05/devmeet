@@ -66,21 +66,26 @@ export default function MeetingsPage() {
     };
 
     const updateMeeting = async (updatedMeeting: Meeting) => {
-        const { data, error } = await supabase
-            .from("meetings")
-            .update(updatedMeeting)
-            .eq("id", updatedMeeting.id)
-            .select();
+        try {
 
-        if (error) {
-            console.error("Error updating meeting:", error);
-        } else {
-            console.log("Updated meeting data:", data); // Log the updated data
+            const response = await fetch(`/api/meetings/${updatedMeeting.id}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(updatedMeeting),
+            });
+            if (!response.ok) {
+                throw new Error("Failed to update meeting");
+            }
+            const data = await response.json();
             setMeetings((prevMeetings) =>
                 prevMeetings.map((meeting) =>
-                    meeting.id === updatedMeeting.id ? updatedMeeting : meeting
+                    meeting.id === updatedMeeting.id ? data : meeting
                 )
             );
+        } catch (error) {
+            console.error("Error updating meeting:", error);
         }
     };
 
