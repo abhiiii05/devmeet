@@ -59,10 +59,20 @@ export default function MeetingsPage() {
         }
     };
 
-    const deleteMeeting = async (id: string) => {
-        const { error } = await supabase.from("meetings").delete().eq("id", id);
-        if (error) console.error(error);
-        else setMeetings(meetings.filter((meeting) => meeting.id !== id));
+    const deleteMeeting = async (id) => {
+        try {
+            const response = await fetch(`/api/meetings/${id}`, {
+                method: "DELETE",
+            });
+
+            if (!response.ok) {
+                throw new Error("Failed to delete meeting");
+            }
+
+            setMeetings(meetings.filter((meeting) => meeting.id !== id));
+        } catch (error) {
+            console.error("Error deleting meeting:", error);
+        }
     };
 
     const updateMeeting = async (updatedMeeting: Meeting) => {
