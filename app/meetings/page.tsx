@@ -23,9 +23,16 @@ export default function MeetingsPage() {
 
     useEffect(() => {
         const fetchMeetings = async () => {
-            const { data, error } = await supabase.from("meetings").select("*");
-            if (error) console.error(error);
-            else setMeetings(data || []);
+            try {
+                const response = await fetch("/api/meetings");
+                if (!response.ok) {
+                    throw new Error("Failed to fetch meetings");
+                }
+                const data = await response.json();
+                setMeetings(data);
+            } catch (error) {
+                console.error("Error fetching meetings:", error);
+            }
         };
 
         fetchMeetings();
