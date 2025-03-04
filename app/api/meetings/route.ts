@@ -20,16 +20,22 @@ export async function GET(){
 
 }
 
-// export async function POST(request:Request, response:Response){
-//     try {
-//         const { title, date, time, attendees, link } = await request.json();
-//         const { data, error } = await supabase
-//             .from("meetings")
-//             .insert([{ title, date, time, attendees, link, isStarred: false }])
-//             .select();
-//
-//         if (error){
-//             return NextResponse.json({error: error.message}, {status : 400});
-//         }
-//     }
-// }
+export async function POST(request:Request, response:Response){
+    try {
+        const { title, date, time, attendees, link } = await request.json();
+        const { data, error } = await supabase
+            .from("meetings")
+            .insert([{ title, date, time, attendees, link, isStarred: false }])
+            .select();
+
+        if (error){
+            return NextResponse.json({error: error.message}, {status : 400});
+        }
+
+        return NextResponse.json(data[0], { status: 201 });
+    }
+    catch (error) {
+        return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+    }
+
+}

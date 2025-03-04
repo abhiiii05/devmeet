@@ -38,13 +38,25 @@ export default function MeetingsPage() {
         fetchMeetings();
     }, []);
 
-    const addMeeting = async (newMeeting: Omit<Meeting, "id">) => {
-        const { data, error } = await supabase
-            .from("meetings")
-            .insert([{ ...newMeeting, isStarred: false }]) // Default isStarred to false
-            .select();
-        if (error) console.error(error);
-        else setMeetings([...meetings, ...data]);
+    const addMeeting = async (newMeeting) => {
+        try {
+            const response = await fetch("/api/meetings", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(newMeeting),
+            });
+
+            if (!response.ok) {
+                throw new Error("Failed to add meeting");
+            }
+
+            const data = await response.json();
+            setMeetings([...meetings, data]);
+        } catch (error) {
+            console.error("Error adding meeting:", error);
+        }
     };
 
     const deleteMeeting = async (id: string) => {
