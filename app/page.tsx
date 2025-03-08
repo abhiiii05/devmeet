@@ -10,6 +10,16 @@ import { Button } from '@/components/ui/button';
 import { supabase } from './lib/supabaseClient';
 import { MultiStepLoader as Loader } from '../components/ui/multi-step-loader';
 
+interface Meeting {
+    id: number;
+    title: string;
+    time: string;
+    date: string;
+    attendees: string[];
+    link: string;
+    isStarred: boolean;
+}
+
 export default function DashboardPage() {
     const { isSignedIn, user, isLoaded } = useUser();
     const [totalAttendees, setTotalAttendees] = useState<number>(0)
@@ -157,13 +167,42 @@ function StatsCard({ icon: Icon, title, value }: { icon: any; title: string; val
     );
 }
 
+const formatDate = (dateString: string): string => {
+    const [year, month, day] = dateString.split('-');
+    return `${day}-${month}-${year}`;
+};
+
 // UpcomingMeetings Component
 function UpcomingMeetings() {
-    const meetings = [
-        { id: 1, title: 'Project Kickoff', time: 'Today, 3:00 PM' },
-        { id: 2, title: 'Code Review', time: 'Tomorrow, 10:00 AM' },
-        { id: 3, title: 'Team Sync', time: 'Friday, 2:00 PM' },
-    ];
+    const [meetings, setMeetings] = useState<Meeting[]>([]); // Specify the type
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        // Fetch all meetings from the API
+        const fetchMeetings = async () => {
+            try {
+                const response = await fetch('/api/meetings');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch meetings');
+                }
+                const data: Meeting[] = await response.json(); // Specify the type of the response
+                setMeetings(data);
+            } catch (error) {
+                console.error('Error fetching meetings:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchMeetings();
+    }, []);
+
+    // Filter meetings to only include starred ones
+    const starredMeetings = meetings.filter((meeting) => meeting.isStarred);
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
 
     return (
         <Card className="bg-gray-800 border-gray-700 w-full">
@@ -172,27 +211,34 @@ function UpcomingMeetings() {
             </CardHeader>
             <CardContent>
                 <ul className="space-y-4">
-                    {meetings.map((meeting) => (
-                        <motion.li
-                            key={meeting.id}
-                            initial={{ opacity: 0, x: -20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.3 }}
-                            className="flex items-center justify-between bg-gray-700 p-3 rounded-lg"
-                        >
-                            <div>
-                                <p className="font-medium text-white">{meeting.title}</p>
-                                <p className="text-sm text-gray-400">{meeting.time}</p>
-                            </div>
-                            <Button
-                                variant="outline"
-                                size="sm"
-                                className="text-indigo-400 border-indigo-400 hover:bg-indigo-400 hover:text-white"
+                    {starredMeetings.length === 0 ? (
+                        <p className="text-gray-400">No important meetings found.</p>
+                    ) : (
+                        starredMeetings.map((meeting) => (
+                            <motion.li
+                                key={meeting.id}
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ duration: 0.3 }}
+                                className="flex items-center justify-between bg-gray-700 p-3 rounded-lg"
                             >
-                                Join
-                            </Button>
-                        </motion.li>
-                    ))}
+                                <div>
+                                    <p className="font-bold text-xl text-white">{meeting.title}</p>
+                                    <p className="text-sm text-gray-400">
+                                        {formatDate(meeting.date)} at {meeting.time}
+                                    </p>
+
+                                </div>
+                                <Button
+                                    variant="outline"
+                                    size="sm"
+                                    className="text-indigo-400 border-indigo-400 hover:bg-indigo-400 hover:text-white"
+                                >
+                                    Join
+                                </Button>
+                            </motion.li>
+                        ))
+                    )}
                 </ul>
             </CardContent>
         </Card>
