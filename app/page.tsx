@@ -1,7 +1,7 @@
 'use client';
 import { useUser } from '@clerk/nextjs';
 import { motion } from 'framer-motion';
-import { Calendar, Users, MessageSquare,Star } from 'lucide-react';
+import { Calendar, Users,Star } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Header } from './components/ui/header';
 import { Sidebar } from './components/ui/sidebar';
@@ -9,6 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { supabase } from './lib/supabaseClient';
 import { MultiStepLoader as Loader } from '../components/ui/multi-step-loader';
+import {ElementType} from "react";
 
 interface Meeting {
     id: number;
@@ -35,6 +36,7 @@ export default function DashboardPage() {
                 const count = await getMeetingCount();
                 setMeetingCount(count);
             } catch (error) {
+                console.log(error)
                 setError('Failed to fetch meeting count');
             } finally {
                 setLoading(false);
@@ -147,7 +149,7 @@ export default function DashboardPage() {
 }
 
 // StatsCard Component
-function StatsCard({ icon: Icon, title, value }: { icon: any; title: string; value: number }) {
+function StatsCard({ icon: Icon, title, value }: { icon: ElementType; title: string; value: number }) {
     return (
         <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -248,6 +250,19 @@ function UpcomingMeetings() {
 // MultiStepLoaderDemo Component
 export function MultiStepLoaderDemo() {
     const [loading, setLoading] = useState(false);
+
+    // Example: Start loading after 1 second, stop after 3 seconds
+    useEffect(() => {
+        const timer1 = setTimeout(() => setLoading(true), 1000);
+        const timer2 = setTimeout(() => setLoading(false), 3000);
+
+        // Cleanup timers
+        return () => {
+            clearTimeout(timer1);
+            clearTimeout(timer2);
+        };
+    }, []);
+
     return (
         <div className="w-full h-[60vh] flex items-center justify-center">
             <Loader loadingStates={loadingStates} loading={loading} duration={2000} />

@@ -18,6 +18,7 @@ export async function PUT(request: Request, { params }: { params: { id: string }
 
         return NextResponse.json(data[0], { status: 200 });
     } catch (error) {
+        console.error("Error deleting meeting:", error);
         return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
     }
 }
@@ -37,6 +38,7 @@ export async function DELETE(request: Request, { params }: { params: { id: strin
         return NextResponse.json({ message: "Meeting deleted successfully" }, { status: 200 });
     }
     catch (error) {
+        console.error("Error deleting meeting:", error);
         return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
     }
 }

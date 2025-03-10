@@ -1,9 +1,9 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Bell, Search, Plus } from "lucide-react"
+import {  Search } from "lucide-react"
 import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
+// import { Button } from "@/components/ui/button"
 import {UserButton} from "@clerk/nextjs";
 
 export function Header() {

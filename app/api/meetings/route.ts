@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { supabase } from "../../lib/supabaseClient";
-import {from} from "stylis";
+// import {from} from "stylis";
 
 //Fetch request ( GET ) : getting all the meeting details
 export async function GET(){
@@ -15,12 +15,13 @@ export async function GET(){
 
     }
     catch(error){
+        console.error("Error deleting meeting:", error);
         return NextResponse.json({error:"Internal Server Error"}, {status : 500});
     }
 
 }
 
-export async function POST(request:Request, response:Response){
+export async function POST(request:Request){
     try {
         const { title, date, time, attendees, link } = await request.json();
         const { data, error } = await supabase
@@ -35,6 +36,7 @@ export async function POST(request:Request, response:Response){
         return NextResponse.json(data[0], { status: 201 });
     }
     catch (error) {
+        console.error("Error deleting meeting:", error);
         return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
     }
 
