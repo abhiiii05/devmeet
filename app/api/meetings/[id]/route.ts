@@ -1,11 +1,15 @@
-import {NextRequest, NextResponse} from "next/server";
-import { supabase } from "../../../lib/supabaseClient";
+import { NextRequest, NextResponse } from 'next/server';
+import { supabase } from '../../../lib/supabaseClient';
 
-
-
-export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
+// PUT: Update a meeting by ID
+export async function PUT(request: NextRequest) {
     try {
-        const { id } = params;
+        // Extract `id` from the URL params
+        const id = request.nextUrl.pathname.split('/').pop();
+
+        if (!id) {
+            return NextResponse.json({ error: 'Meeting ID is required' }, { status: 400 });
+        }
 
         // Parse the request body
         const { title, date, time, attendees, link } = await request.json();
@@ -29,10 +33,15 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
     }
 }
 
-
-export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
+// DELETE: Delete a meeting by ID
+export async function DELETE(request: NextRequest) {
     try {
-        const { id } = params;
+        // Extract `id` from the URL params
+        const id = request.nextUrl.pathname.split('/').pop();
+
+        if (!id) {
+            return NextResponse.json({ error: 'Meeting ID is required' }, { status: 400 });
+        }
 
         // Delete the meeting from Supabase
         const { error } = await supabase
