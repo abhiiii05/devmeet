@@ -1,15 +1,14 @@
 'use client';
 import { useUser } from '@clerk/nextjs';
 import { motion } from 'framer-motion';
-import { Calendar, Users,Star } from 'lucide-react';
+import { Calendar, Users, Star } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Header } from './components/ui/header';
 import { Sidebar } from './components/ui/sidebar';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { supabase } from './lib/supabaseClient';
-import { MultiStepLoader as Loader } from '../components/ui/multi-step-loader';
-import {ElementType} from "react";
+import { ElementType } from 'react';
 
 interface Meeting {
     id: number;
@@ -23,7 +22,7 @@ interface Meeting {
 
 export default function DashboardPage() {
     const { isSignedIn, user, isLoaded } = useUser();
-    const [totalAttendees, setTotalAttendees] = useState<number>(0)
+    const [totalAttendees, setTotalAttendees] = useState<number>(0);
     const [meetingCount, setMeetingCount] = useState<number>(0);
     const [impCount, setimpCount] = useState<number>(0);
     const [loading, setLoading] = useState<boolean>(true);
@@ -36,7 +35,7 @@ export default function DashboardPage() {
                 const count = await getMeetingCount();
                 setMeetingCount(count);
             } catch (error) {
-                console.log(error)
+                console.log(error);
                 setError('Failed to fetch meeting count');
             } finally {
                 setLoading(false);
@@ -52,8 +51,8 @@ export default function DashboardPage() {
         const fetchTotalAttendees = async () => {
             try {
                 const { data, error } = await supabase
-                    .from("meetings")
-                    .select("attendees");
+                    .from('meetings')
+                    .select('attendees');
 
                 if (error) {
                     throw error;
@@ -63,7 +62,7 @@ export default function DashboardPage() {
                 const sum = data.reduce((acc, meeting) => acc + meeting.attendees, 0);
                 setTotalAttendees(sum);
             } catch (error) {
-                setError("Failed to fetch total attendees");
+                setError('Failed to fetch total attendees');
                 console.error(error);
             } finally {
                 setLoading(false);
@@ -76,18 +75,18 @@ export default function DashboardPage() {
     const fetchImportantMeetingsCount = async () => {
         try {
             const { count, error } = await supabase
-                .from("meetings")
-                .select("*", { count: "exact", head: true })
-                .eq("isStarred", true);
+                .from('meetings')
+                .select('*', { count: 'exact', head: true })
+                .eq('isStarred', true);
 
             if (error) {
-                console.error("Error fetching important meetings count:", error);
+                console.error('Error fetching important meetings count:', error);
             } else {
-                console.log("Important meetings count fetched successfully:", count);
+                console.log('Important meetings count fetched successfully:', count);
                 setimpCount(count || 0);
             }
         } catch (error) {
-            console.error("Error in fetchImportantMeetingsCount:", error);
+            console.error('Error in fetchImportantMeetingsCount:', error);
         }
     };
 
@@ -96,17 +95,9 @@ export default function DashboardPage() {
         fetchImportantMeetingsCount();
     }, []);
 
-
-
-
-
     // Loading state
     if (!isLoaded) {
-        return (
-            <div>
-                <MultiStepLoaderDemo />
-            </div>
-        );
+        return <div>Loading...</div>;
     }
 
     // Not signed in state
@@ -121,7 +112,7 @@ export default function DashboardPage() {
 
     // Loading state for meeting count
     if (loading) {
-        return <MultiStepLoaderDemo />;
+        return <div>Loading...</div>;
     }
 
     return (
@@ -229,7 +220,6 @@ function UpcomingMeetings() {
                                     <p className="text-sm text-gray-400">
                                         {formatDate(meeting.date)} at {meeting.time}
                                     </p>
-
                                 </div>
                                 <Button
                                     variant="outline"
@@ -247,29 +237,6 @@ function UpcomingMeetings() {
     );
 }
 
-// MultiStepLoaderDemo Component
-export function MultiStepLoaderDemo() {
-    const [loading, setLoading] = useState(false);
-
-    // Example: Start loading after 1 second, stop after 3 seconds
-    useEffect(() => {
-        const timer1 = setTimeout(() => setLoading(true), 1000);
-        const timer2 = setTimeout(() => setLoading(false), 3000);
-
-        // Cleanup timers
-        return () => {
-            clearTimeout(timer1);
-            clearTimeout(timer2);
-        };
-    }, []);
-
-    return (
-        <div className="w-full h-[60vh] flex items-center justify-center">
-            <Loader loadingStates={loadingStates} loading={loading} duration={2000} />
-        </div>
-    );
-}
-
 // Fetch meeting count from Supabase
 export async function getMeetingCount(): Promise<number> {
     const { count, error } = await supabase
@@ -283,42 +250,3 @@ export async function getMeetingCount(): Promise<number> {
 
     return count || 0;
 }
-// export async function getAttendeesCount(): Promise<number> {
-//     const { count, error } = await supabase
-//         .from('meetings')
-//         .select('attendees', { count: 'sum(attendees)', head: true });
-//
-//     if (error) {
-//         console.error('Error fetching meeting count:', error);
-//         throw error;
-//     }
-//
-//     return count || 0;
-// }
-
-const loadingStates = [
-    { text: 'Buying a condo' },
-    { text: 'Travelling in a flight' },
-    { text: 'Meeting Tyler Durden' },
-    { text: 'He makes soap' },
-    { text: 'We goto a bar' },
-    { text: 'Start a fight' },
-    { text: 'We like it' },
-    { text: 'Welcome to F**** C***' },
-];
-// 'use client'
-//
-//
-// export default function Example() {
-//     const { isSignedIn, user, isLoaded } = useUser()
-//
-//     if (!isLoaded) {
-//         return <div>Loading...</div>
-//     }
-//
-//     if (!isSignedIn) {
-//         return <div>Sign in to view this page</div>
-//     }
-//
-//     return <div>Hello {user.firstName}!</div>
-// }
