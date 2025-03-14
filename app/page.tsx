@@ -28,6 +28,19 @@ export default function DashboardPage() {
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 
+    const getMeetingCount = async (): Promise<number> => {
+        const { count, error } = await supabase
+            .from('meetings')
+            .select('*', { count: 'exact', head: true });
+
+        if (error) {
+            console.error('error', error);
+            throw error;
+        }
+
+        return count || 0;
+    };
+
     // Fetch meeting count
     useEffect(() => {
         const fetchData = async () => {
@@ -238,15 +251,15 @@ function UpcomingMeetings() {
 }
 
 // Fetch meeting count from Supabase
-export async function getMeetingCount(): Promise<number> {
-    const { count, error } = await supabase
-        .from('meetings')
-        .select('*', { count: 'exact', head: true });
-
-    if (error) {
-        console.error('Error fetching meeting count:', error);
-        throw error;
-    }
-
-    return count || 0;
-}
+// export async function getMeetingCount(): Promise<number> {
+//     const { count, error } = await supabase
+//         .from('meetings')
+//         .select('*', { count: 'exact', head: true });
+//
+//     if (error) {
+//         console.error('Error fetching meeting count:', error);
+//         throw error;
+//     }
+//
+//     return count || 0;
+// }
