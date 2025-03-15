@@ -1,4 +1,3 @@
-// app/meetings/page.tsx
 "use client";
 
 import { useEffect, useState } from "react";
@@ -16,6 +15,14 @@ interface Meeting {
     attendees: number;
     link: string;
     isStarred?: boolean;
+}
+
+interface NewMeetingInput {
+    title: string;
+    date: string;
+    time: string;
+    attendees: number;
+    link: string;
 }
 
 export default function MeetingsPage() {
@@ -38,14 +45,24 @@ export default function MeetingsPage() {
         fetchMeetings();
     }, []);
 
-    const addMeeting = async (newMeeting) => {
+    const addMeeting = async (newMeeting: NewMeetingInput) => {
         try {
+            // Generate a unique ID for the new meeting
+            const id = crypto.randomUUID(); // or use any other ID generation logic
+
+            // Create a full Meeting object
+            const meeting: Meeting = {
+                id,
+                ...newMeeting,
+                isStarred: false, // Default value
+            };
+
             const response = await fetch("/api/meetings", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(newMeeting),
+                body: JSON.stringify(meeting),
             });
 
             if (!response.ok) {
@@ -59,7 +76,7 @@ export default function MeetingsPage() {
         }
     };
 
-    const deleteMeeting = async (id) => {
+    const deleteMeeting = async (id: string) => {
         try {
             const response = await fetch(`/api/meetings/${id}`, {
                 method: "DELETE",
@@ -77,7 +94,6 @@ export default function MeetingsPage() {
 
     const updateMeeting = async (updatedMeeting: Meeting) => {
         try {
-
             const response = await fetch(`/api/meetings/${updatedMeeting.id}`, {
                 method: "PUT",
                 headers: {
@@ -85,9 +101,11 @@ export default function MeetingsPage() {
                 },
                 body: JSON.stringify(updatedMeeting),
             });
+
             if (!response.ok) {
                 throw new Error("Failed to update meeting");
             }
+
             const data = await response.json();
             setMeetings((prevMeetings) =>
                 prevMeetings.map((meeting) =>
