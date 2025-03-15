@@ -68,14 +68,6 @@ import { useUser } from '@clerk/nextjs';
                                                     className="bg-gray-700 text-white border-gray-600"
                                                 />
                                             </div>
-                                            <div>
-                                                <Label htmlFor="bio" className="text-white">Bio</Label>
-                                                <Textarea
-                                                    id="bio"
-                                                    defaultValue="Full-stack developer passionate about creating innovative solutions."
-                                                    className="bg-gray-700 text-white border-gray-600"
-                                                />
-                                            </div>
                                             <Button
                                                 className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold">Save
                                                 Changes</Button>
